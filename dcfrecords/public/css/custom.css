@@ -1,0 +1,234 @@
+html,
+body {
+	height: 100%;
+	overflow: visible;
+}
+body {
+	background: #E4E4E4;
+}
+
+body > div[id='#app'] {
+	height: 100%;
+	overflow: hidden;
+}
+
+#content {
+	height: 100%;
+	height: calc(100% - 35px);
+	overflow-x: visible;
+	overflow-y: auto;
+	padding-top: 15px;
+	margin-right: -35px;
+	padding-right: 35px;
+}
+
+.container {
+ 	background: white;
+	height: 100%;
+	position: relative;
+	overflow: hidden;
+}
+.btn-round {
+	border-radius: 50%;
+	font-size: 25px;
+	width: 50px;
+	padding-left: 0;
+	padding-right: 0;
+}
+.btn-red {
+	background: #DE5545;
+	color:white;
+	outline: 0;
+}
+.btn-red:hover,
+.btn-red:focus {
+	color: white;
+	box-shadow: 1px 1px 2px #888;
+	outline: 0 !important;
+}
+.btn-red:active {
+	color: #efefef;
+	background: #CD4434;
+}
+
+.text-muted {
+	color: #95989A;
+}
+
+h4 {
+	font-size: 17px;
+	font-weight: normal;
+	margin-top: 0;
+	margin-bottom: 5px;
+}
+h4 > * {
+	vertical-align: middle;
+}
+p {
+	font-size: 16px;
+	margin-top: 0;
+	margin-bottom: 5px;
+	line-height: 1;
+}
+small {
+	font-size: 14px;
+}
+
+.circle {
+	height: 50px;
+	width: 50px;
+	border-radius: 50%;
+	display: inline-block;
+}
+.status-success .circle,
+.status-success .card-border-right {
+	background: #34CD5F;
+}
+.status-info .circle,
+.status-info .card-border-right {
+	background: #11C1F3;
+}
+.status-primary .circle,
+.status-primary .card-border-right {
+	background: #387EF5;
+}
+.status-default .circle,
+.status-default .card-border-right {
+	background: #C3C3C3;
+}
+.status-warning .circle,
+.status-warning .card-bortder-right {
+	background: #FFC900;
+}
+.status-danger .circle,
+.status-danger .card-border-right {
+	background: #EF483B;
+}
+
+.status-success .icon,
+li.status-success p.text,
+.text-wrap.status-success i {
+	color: #34CD5F;
+}
+.status-info .icon,
+li.status-info p.text,
+.text-wrap.status-info i {
+	color: #11C1F3;
+}
+.status-primary .icon,
+li.status-primary p.text,
+.text-wrap.status-primary i {
+	color: #387EF5;
+}
+.status-default .icon,
+li.status-default p.text,
+.text-wrap.status-default i {
+	color: #C3C3C3;
+}
+.status-warning .icon,
+li.status-warning p.text,
+.text-wrap.status-warning i {
+	color: #FFC900;
+}
+.status-danger .icon,
+li.status-danger p.text,
+.text-wrap.status-danger i {
+	color: #EF483B;
+}
+
+.btn.btn-link,
+.btn.btn-link:hover,
+.btn.btn-link:focus {
+	padding-top: 0;
+	padding-bottom: 0;
+	line-height: 1;
+	background: none;
+	border: none;
+}
+
+.btn-link.btn-success {
+	color: #34CD5F;
+}
+.btn-link.btn-primary {
+	color: #387EF5;
+}
+.btn-link.btn-danger,
+.btn-link.btn-danger:focus {
+	color: #EF483B;
+}
+
+.btn-default.btn-link.active, 
+.btn-default.btn-link:active, 
+.open>.dropdown-toggle.btn-default.btn-link {
+	background: none;
+}
+
+.relative {
+	position: relative;
+}
+.inline {
+	display: inline-block;
+}
+
+.list-item-wrapper {
+	border-bottom: solid 1px #BEC7CC;	
+}
+.list-item-wrapper:last-child {
+	border-bottom: none;
+}
+.list-item {
+	display: flex;
+	width: 100%;
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+.list-item .content-left {
+	margin-right: 15px;
+	display: inline-block;
+	align-self: center;
+}
+.list-item .content-right {
+	margin-left: 15px;
+	display: inline-block;
+	align-self: center;
+}
+.list-item .content-center {
+	flex-grow: 1;
+}
+.text-right.dropdown-menu {
+	left: unset;
+	right: 0;
+}
+
+.pointer {
+	cursor: pointer;
+}
+
+.card {
+    background: #fff none repeat scroll 0 0;
+    border: medium none;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    position: relative;
+    margin-left: 2px;
+    margin-bottom: 15px;
+}
+.card .card-content {
+    padding: 16px;
+}
+.card-border-right {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 2px;
+	height: 100%;
+	background: #ebebeb;
+}
+
+
+@media(max-width: 767px){
+	.nav-tabs.nav-justified>li {
+	    display: table-cell;
+	    width: 1%;
+	}
+}
