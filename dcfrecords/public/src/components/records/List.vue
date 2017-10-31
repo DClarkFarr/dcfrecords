@@ -1,9 +1,11 @@
 <template>
 	<div v-if="!loading" class="record-list">
+		
 		<record-list-item 
 			v-bind:record='record' 
-			v-for="record in records" :key="record.id_record"></record-list-item>	
-
+			v-for="record in records" 
+			v-bind:key="record.id_record"></record-list-item>	
+		
 		<div v-if="!records.length">
 			<div class="jumbotron text-center">
 				<h3>No Records Yet</h3>

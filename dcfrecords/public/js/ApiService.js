@@ -154,9 +154,7 @@ var ApiService = {
 			end_date = new Date(end_date);
 		}	
 		
-		var start_date = new Date(date);
-
-		start_date.setMinutes( start_date.getMinutes() - start_date.getTimezoneOffset() );
+		var start_date = Api.dateFromUTC(date);
 
 		var start_time = start_date.getTime(), 
 			end_time = end_date.getTime(), 
@@ -182,7 +180,86 @@ var ApiService = {
 	        	{period: 'second', x: seconds}
         	],
         };
-	}
+	},
+	dateFromUTC: function(date_str){
+		var date = new Date(date_str);
+		date.setMinutes( date.getMinutes() - date.getTimezoneOffset() );
+		return date;
+	},
+	datetime: function(date_str){
+		return this.formattedDate(date_str, 'datetime');
+	},
+	date: function(date_str){
+		return this.formattedDate(date_str, 'date');
+	},
+	time: function(date_str){
+		return this.formattedDate(date_str, 'time');
+	},
+	formattedDate: function(date_str, format){
+		var date = this.dateFromUTC(date_str);
+
+		var weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+		var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+		var ampm = function(hours){
+			var suffix = 'AM';
+			if(hours >= 12){
+				suffix = 'PM';
+			}
+			return suffix;
+		};
+		var hours = function(hours){
+			if(hours > 12){
+				hours -= 12;
+			}
+			if(hours < 1){
+				hours = 12;
+			}
+			return hours;
+		};
+		var minutes = function(minutes){
+			if(minutes < 10){
+				minutes = '0' + parseInt(minutes);
+			}
+			return minutes;
+		}
+		var seconds = function(seconds){
+			if(seconds < 10){
+				seconds = '0' + parseInt(seconds);
+			}
+			return seconds;
+		}
+
+		var monthday = function(day){
+			if(day < 10){
+				day = '0' + parseInt(day);
+			}
+			return day;
+		};
+
+		if(format == 'datetime'){
+			return [
+				weekdays[ date.getDay() ] + ",",
+				months[ date.getMonth() ],
+				date.getDate(),
+				date.getFullYear(),
+				'at',
+				hours(date.getHours()) + ':' + minutes(date.getMinutes()) + ampm(date.getHours()),
+			].join(' ');
+		}else if(format == 'date'){
+			return [
+				weekdays[ date.getDay() ] + ",",
+				months[ date.getMonth() ],
+				date.getDate(),
+				date.getFullYear(),
+			].join(' ');
+		}else if(format == 'time'){
+			return hours(date.getHours()) + ':' + minutes(date.getMinutes()) + ampm(date.getHours());
+		}
+
+
+		
+	},
 };
 
 window.Api = ApiService;

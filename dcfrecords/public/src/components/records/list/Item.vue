@@ -8,10 +8,22 @@
 			<h4>{{record.name}}</h4>
 			<p class='text-muted'>
 				<span v-html="statusText"></span> 
-				<span class='' v-if="lastUpdated"><small> - Updated: {{lastUpdated}}</small></span>			
+				<span class='' v-if="lastUpdated">
+					<small> - Updated: 
+						<time-span 
+							v-bind:date="lastUpdated"
+							v-bind:created="lastCreated"></time-span>
+					</small>
+				</span>			
 			</p>
 			<p class='text-muted'>	
-				<span class='' v-if="createdAt"><small>Created: {{createdAt}}</small></span>
+				<span class='' v-if="createdAt">
+					<small>Created: 
+						<time-span 
+							v-bind:date="record.updated_at"
+							v-bind:created="record.created_at"></time-span>
+					</small>
+				</span>
 			</p>
 		</div>
 		<div class='buttons'>
@@ -25,6 +37,8 @@
 
 <script>
 import VLink from '../../VLink.vue'
+import TimeSpan from '../../TimeSpan.vue'
+
 export default {
 	props: ['record'],
 	computed: {
@@ -46,7 +60,13 @@ export default {
 		lastUpdated(){
 			var event = this.record.events[0];
 			if(event !== undefined){
-				return Api.timeElapsed(event.updated_at);
+				return event.updated_at;
+			}
+		},
+		lastCreated(){
+			var event = this.record.events[0];
+			if(event !== undefined){
+				return event.created_at;
 			}
 		},
 		createdAt(){
@@ -62,10 +82,12 @@ export default {
 	},
 	components: {
 		VLink,
+		TimeSpan,
 	}
 }
 </script>
 
-<style scoped>
+<style>
 	
+
 </style>

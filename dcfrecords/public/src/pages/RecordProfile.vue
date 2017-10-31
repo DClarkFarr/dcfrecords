@@ -25,14 +25,16 @@
 		  <!-- Tab panes -->
 		  <div class="tab-content">
 		    <div role="tabpanel" class="tab-pane active" id="info">
-		    	<div class="list-items">
+		    	
+		    	<transition-group class='list-items' name="flip-list" tag="div">
 		    		<record-contact-item 
 						v-for="contact in record.contacts"					
 						v-bind:contact="contact"
 						v-bind:record="record"
 						v-bind:key="contact.id_contact"
 						></record-contact-item>
-		    	</div>
+		    	</transition-group>
+
 				<div class="jumbotron text-center" v-if="!record.contacts.length">
 					<h3>No Contact Methods</h3>
 					<p>Click below to enter one or more</p>
@@ -60,7 +62,13 @@
 		    					<small>
 		    						<i v-bind:class="typeIcon(event.contact.type)"></i>
 		    					</small>
-		    					<small>{{timeAgo(event.updated_at)}}</small>
+		    					<small>
+		    						<time-span
+		    							v-bind:date="event.created_at"
+		    							v-bind:heading="false"
+		    							v-bind:mode="'datetime'"
+		    							></time-span>
+		    					</small>
 		    				</p>
 		    				<h4>
 		    					<span>{{statusText(event.value)}}</span>
@@ -85,6 +93,7 @@
 <script>
 import MainLayout from '../layouts/Main.vue'
 import VLink from '../components/VLink.vue'
+import TimeSpan from '../components/TimeSpan.vue'
 import RecordContactItem from '../components/records/contact/Item.vue'
 
 export default {
@@ -158,6 +167,7 @@ export default {
 		MainLayout,
 		VLink,
 		RecordContactItem,
+		TimeSpan,
 	},
 }
 </script>

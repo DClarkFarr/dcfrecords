@@ -1,54 +1,76 @@
 <template>
 	<div class="list-item-wrapper">
 		<div class="list-item" v-bind:class="status">
-		<div class="content-left">
-			<div class='icon-wrapper'>
-				<i class="icon" v-bind:class="typeIcon(contact.type)"></i>
+			<div class="content-left">
+				<div class='icon-wrapper'>
+					<i class="icon" v-bind:class="typeIcon(contact.type)"></i>
+				</div>
+			</div>
+			<div class="content-center pointer" v-on:click="open = !open">
+				<h4>{{contact.value}}</h4>
+				<p class='text-muted'>
+					<small>
+						{{contact.label}} 
+						<time-span 
+							v-bind:date="contact.updated_at"
+							v-bind:created="contact.created_at"
+						></time-span>
+					</small>
+				</p>
+			</div>
+			<div class="content-right">
+				<div class="btn-group">
+				  <button type="button" class="btn btn-default btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    <span class="caret"></span>
+				  </button>
+				  <ul class="dropdown-menu text-right">
+				    <li
+				    	v-for="status in statuses" 
+				    	v-bind:class="{active: status.value == contact.status}">
+				    		<a 
+				    			v-on:click.prevent="updateStatus(status.value)"
+				    			href="javascript:void(0)">
+				    			<i class="fa fa-arrow-right"></i> {{status.name}}
+				    		</a>
+				    </li>
+				    <li role="separator" class="divider"></li>
+				    <li><v-link v-bind:href="editUrl"><i class='fa fa-pencil'></i> Edit</v-link></li>
+				    <li><a v-on:click="deleteContact" href="javascript:void(0)"><i class='fa fa-times'></i> Delete</a></li>
+				  </ul>
+				</div>
 			</div>
 		</div>
-		<div class="content-center pointer" v-on:click="open = !open">
-			<h4>{{contact.value}}</h4>
-			<p class='text-muted'><small>{{contact.label}} / {{timeElapsed}} </small></p>
-		</div>
-		<div class="content-right">
-			<div class="btn-group">
-			  <button type="button" class="btn btn-default btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			    <span class="caret"></span>
-			  </button>
-			  <ul class="dropdown-menu text-right">
-			    <li
-			    	v-for="status in statuses" 
-			    	v-bind:class="{active: status.value == contact.status}">
-			    		<a 
-			    			v-on:click.prevent="updateStatus(status.value)"
-			    			href="javascript:void(0)">
-			    			<i class="fa fa-arrow-right"></i> {{status.name}}
-			    		</a>
-			    </li>
-			    <li role="separator" class="divider"></li>
-			    <li><v-link v-bind:href="editUrl"><i class='fa fa-pencil'></i> Edit</v-link></li>
-			    <li><a v-on:click="deleteContact" href="javascript:void(0)"><i class='fa fa-times'></i> Delete</a></li>
-			  </ul>
+		
+		<slidedown>
+			<div class="list-item-addon" v-show="open && contact.events !== undefined && contact.events.length">
+				<div class="item-addon-content">
+					<ul class="list-unstyled list-contact-events">
+						<li 
+							v-for="event in contact.events" 
+							 dv-bind:class="statusColor(event.value)">
+							<p class='text-muted'>
+								<small>
+									<time-span 
+										v-bind:mode="'datetime'"
+										v-bind:date="event.updated_at"
+										v-bind:heading='false'></time-span>
+								</small>
+							</p>
+							<p class='text'>{{ statusText(event.value) }}</p>
+						</li>
+					</ul>
+				</div>
 			</div>
-		</div>
-	</div>
-	<div class="list-item-addon" v-show="open && contact.events !== undefined && contact.events.length">
-		<div class="item-addon-content">
-			<ul class="list-unstyled list-contact-events">
-				<li 
-					v-for="event in contact.events" 
-					 dv-bind:class="statusColor(event.value)">
-					<p class='text-muted'><small>{{ timeago(event.updated_at) }}</small></p>
-					<p class='text'>{{ statusText(event.value) }}</p>
-				</li>
-			</ul>
-		</div>
-	</div>
+		</slidedown>
+		
 	</div>
 </template>
 
 <script>
 import VLink from '../../VLink.vue'
+import TimeSpan from '../../TimeSpan.vue'
+import Slidedown from "../../transitions/Slidedown.vue";
+
 export default {
 	data(){
 		return {
@@ -58,9 +80,6 @@ export default {
 	created(){
 	},
 	methods: {
-		timeago(date){
-			return Api.timeElapsed(date);
-		},
 		statusColor(status){
 			return Api.statusColor(status);
 		},
@@ -99,13 +118,12 @@ export default {
 		editUrl(){
 			return 'record/' + this.record.id_record + '/contact/' + this.contact.id_contact
 		},
-		timeElapsed(){
-			return Api.timeElapsed(this.contact.updated_at);
-		}
 	},
 	props: ['contact', 'record'],
 	components: {
 		VLink,
+		TimeSpan,
+		Slidedown
 	},
 };
 </script>

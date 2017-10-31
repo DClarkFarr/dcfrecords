@@ -181,6 +181,7 @@ li.status-danger p.text,
 	width: 100%;
 	padding-top: 15px;
 	padding-bottom: 15px;
+	background: white;
 }
 
 .list-item .content-left {
@@ -225,6 +226,29 @@ li.status-danger p.text,
 	background: #ebebeb;
 }
 
+.slidedown-enter-active, 
+.slidedown-leave-active,
+.slidedown-enter-active .slidedown-content,
+.slidedown-leave-active .slidedown-content  {
+  transition: all linear .5s;
+}
+
+.slidedown-enter-active, 
+.slidedown-leave-active {
+  overflow-y: hidden;
+}
+
+.slidedown-content {
+	position: relative;
+}
+.slidedown-enter .slidedown-content, 
+.slidedown-leave-to .slidedown-content {
+	transform: translateY(-100%);
+}
+
+.flip-list-move {
+  transition: transform 1s;
+}
 
 @media(max-width: 767px){
 	.nav-tabs.nav-justified>li {
