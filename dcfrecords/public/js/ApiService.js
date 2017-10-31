@@ -7,6 +7,9 @@ $.ajaxSetup({
 
 var ApiService = {
 	base: 'http://localhost:8888/api/',
+	init: function(){
+		this.user_guid = this.getCookie('user_guid');
+	},
 	getRecords: function(args){
 		if(args.offset === undefined){
 			args.offset = 0;
@@ -44,6 +47,12 @@ var ApiService = {
 	},
 	updateContactStatus: function(id_contact, id_record, status){
 		return this.post('contact/update-status', {id_contact: id_contact, id_record: id_record, status: status});
+	},
+	userLogin: function(username, password){
+		return this.post('user/login', {username: username, password: password});
+	},
+	getUser: function(){
+		return this.post('user/get', {user_guid: this.user_guid});
 	},
 	statusColor: function(status){
 		var color;
@@ -256,10 +265,28 @@ var ApiService = {
 		}else if(format == 'time'){
 			return hours(date.getHours()) + ':' + minutes(date.getMinutes()) + ampm(date.getHours());
 		}
-
-
-		
 	},
+	getCookie: function(cname){
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length,c.length);
+            }
+        }
+        return "";
+    },
+    setCookie: function(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        var expires = "expires="+ d.toUTCString();
+        document.cookie = cname + "=" + cvalue + "; " + expires;
+    },
+
 };
 
 window.Api = ApiService;

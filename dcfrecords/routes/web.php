@@ -24,6 +24,9 @@ Route::prefix('api')->namespace('Api')->group(function () {
 	Route::post('contact/update-status', 'ContactsController@updateStatusAction');
 
 	Route::post('event/delete', 'EventsController@deleteEventAction');
+
+
+	Route::post('user/login', 'UserController@userLoginAction');
 });
 
 Route::get('/', function () {
