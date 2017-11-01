@@ -75,8 +75,7 @@
 
     		Api.saveRecord(this.$route.params.id, this.record).then((data) => {
     			if(data.status == 'success'){
-                    this.$root.currentRoute = '/record/' + data.record.id_record;
-    				this.$router.push({name: 'RecordProfile', params: {id: data.record.id_record}});
+                    this.$root.redirect('/record/' + data.record.id_record);
     			}else{
     				this.message = {type: 'failed', text: data.message};
     			}

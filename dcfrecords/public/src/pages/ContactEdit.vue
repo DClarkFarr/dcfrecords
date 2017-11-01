@@ -76,8 +76,7 @@
   			Api.saveContact(this.$route.params.id, this.$route.params.record, this.contact)
   			.then((data) => {
   				if(data.status == 'success'){
-  					this.$root.currentRoute = '/record/' + this.record.id_record;
-  					this.$router.push({name: 'RecordProfile', params: {id: this.record.id_record}});
+            this.$root.redirect('/record/' + this.record.id_record);
   				}else{
   					this.message = {type: 'danger', text: data.message};
   				}

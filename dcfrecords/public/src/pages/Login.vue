@@ -57,6 +57,9 @@ export default {
 			Api.userLogin(this.username, this.password).then((data) => {
 				if(data.status == 'success'){
 					this.$root.user = data.user;
+					Api.user_guid = data.user.user_guid;
+					Api.setCookie('user_guid', data.user.user_guid);
+					this.$root.redirect('/');
 				}else{
 					this.message = Object.assign({type: 'danger', errors: data.errors});
 				}

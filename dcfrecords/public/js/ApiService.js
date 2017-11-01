@@ -52,7 +52,22 @@ var ApiService = {
 		return this.post('user/login', {username: username, password: password});
 	},
 	getUser: function(){
+		if(!this.user_guid){
+			this.user_guid = this.getCookie('user_guid');
+		}
 		return this.post('user/get', {user_guid: this.user_guid});
+	},
+	createUser: function(fields){
+		return this.post('user/create', fields);
+	},
+	getUsername: function(first_name, last_name){
+		return this.post('user/username', {first_name: first_name, last_name: last_name});
+	},
+	checkUsername: function(username){
+		return this.post('user/username-available', {username: username});
+	},
+	checkUsernameAndEmail: function(first_name, last_name, email){
+		return this.post('user/username-email', {first_name: first_name, last_name: last_name, email: email});
 	},
 	statusColor: function(status){
 		var color;
@@ -281,6 +296,9 @@ var ApiService = {
         return "";
     },
     setCookie: function(cname, cvalue, exdays) {
+    	if(!exdays){
+    		exdays = 1;
+    	}
         var d = new Date();
         d.setTime(d.getTime() + (exdays*24*60*60*1000));
         var expires = "expires="+ d.toUTCString();
@@ -288,7 +306,6 @@ var ApiService = {
     },
 
 };
-
 window.Api = ApiService;
 })(jQuery, document, window);
 

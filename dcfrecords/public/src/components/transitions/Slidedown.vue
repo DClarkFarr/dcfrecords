@@ -18,12 +18,20 @@ export default {
 	methods: {
 
 		beforeEnter: function (el) {
-			
+
 		},
 		// the done callback is optional when
 		// used in combination with CSS
 		enter: function (el, done) {
-			$(el).css('display', 'none').slideDown(250, function(){
+			var $el = $(el);
+			if( ! ( $el.hasClass('enter') || $el.hasClass('leave')) ){
+				$el.css('display', 'none');
+			}
+			if( $el.hasClass('leave')){
+				$el.stop().css('height', 'auto');
+			}
+			$el.addClass('enter').removeClass('leave').slideDown(250, function(){
+				$el.removeClass('enter');
 				done();
 			});
 		},
@@ -43,7 +51,12 @@ export default {
 		// the done callback is optional when
 		// used in combination with CSS
 		leave: function (el, done) {
-			$(el).slideUp(250, function(){
+			var $el = $(el);
+			if($el.hasClass('enter')){
+				$el.stop().css('height', 'auto');
+			}
+			$el.addClass('leave').removeClass('enter').slideUp(250, function(){
+				$el.removeClass('leave');
 				done();
 			});	
 		},
@@ -52,7 +65,7 @@ export default {
 		},
 		// leaveCancelled only available with v-show
 		leaveCancelled: function (el) {
-		// ...
+
 		},
 	}//endmethods
 }

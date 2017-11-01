@@ -76,8 +76,7 @@ export default {
 	methods: {
 		
 		go(){
-			this.$root.currentRoute = this.profileLink;
-			this.$router.push({name: 'RecordProfile', params: {id: this.record.id_record}});
+			this.$root.redirect(this.profileLink);
 		},
 	},
 	components: {

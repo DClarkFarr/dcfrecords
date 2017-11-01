@@ -26,7 +26,12 @@ Route::prefix('api')->namespace('Api')->group(function () {
 	Route::post('event/delete', 'EventsController@deleteEventAction');
 
 
+	Route::post('user/get', 'UserController@getUserAction');
+	Route::post('user/create', 'UserController@createUserAction');
 	Route::post('user/login', 'UserController@userLoginAction');
+	Route::post('user/username', 'UserController@usernameAction');
+	Route::post('user/username-email', 'UserController@usernameEmailAction');
+	Route::post('user/username-available', 'UserController@usernameAvailableAction');
 });
 
 Route::get('/', function () {

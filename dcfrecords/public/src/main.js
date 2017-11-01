@@ -22,57 +22,56 @@ const app = new Vue({
   el: '#app',
   router: router,
   data: {
-    currentRoute: window.location.pathname,
     user: false,
+    view: false,
   },
 
   created: function(){
     this.$bus = new Vue();
-    
-    this.authenticateUser();
 
-    if(this.$route.name === null){
-      this.$router.push({name: 'Home'});
-    }
+    Api.init(); 
+    this.authenticateUser((data) => {
+      if(this.$route.name === null || (this.$route.path !== undefined && this.$route.path.indexOf('/login') > -1) ){
+        this.redirect('/');
+      }
+    });
   },
   template: '<div id="#app"><router-view class="view"></router-view></div>',
   methods: {
-    authenticateUser(){
+    authenticateUser(callback){
       if(Api.user_guid){
         Api.getUser().then((data) => {
           if(data.status == 'success'){
             this.user = data.user;
+            if($.isFunction(callback)){
+              callback(data);
+            }
           }else{
-            this.$router.push({name: 'Login'});
+            this.redirect('/login');
           }
         });
       }else{
-        this.$router.push({name: 'Login'});
+        this.redirect('/login');
       }
     },
-  },
-  computed: {
-    view: function(){
-      
-      var matchingView = this.$router.match(this.currentRoute);
-
+    redirect(href){
+      var view = this.getView(href);
+      this.$router.push( view );
+    },
+    getView(href){
+      var matchingView = this.$router.match(href);
       if(!this.user){
         var loginView = this.$router.match({name: 'Login'});
 
         if(loginView != matchingView && matchingView.path.indexOf('/login') < 0){
-          return loginView;
+          matchingView = loginView;
         }
       }
 
       var finalView = matchingView.name !== null ? matchingView : this.$router.match({name: 'not-found'});
-      return finalView;
-    }
+      return $.extend({}, finalView);
+    },
   },
-  watch: {
-    view: function(val){
-      this.$router.push( $.extend({}, val) );
-    }
-  }
 
 });
 

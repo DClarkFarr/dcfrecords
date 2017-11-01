@@ -20,18 +20,13 @@
     },
     computed: {
       isActive () {
-        return this.href === this.$root.currentRoute
+        return this.href === this.$root.view.path
       }
     },
     methods: {
       go (event) {
-        event.preventDefault()
-        this.$root.currentRoute = this.href
-        window.history.pushState(
-          null,
-          routes[this.href],
-          this.href
-        )
+        event.preventDefault();
+        this.$root.redirect(this.href);
       }
     }
   }
