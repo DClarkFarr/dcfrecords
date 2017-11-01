@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <slot name='header'>
-      <topbar></topbar>
+      <topbar v-bind:topbar="topbar"></topbar>
     </slot>
     <div id="content">
       <slot></slot>
@@ -14,6 +14,18 @@
   import Topbar from './Topbar.vue';
 
   export default {
+    data(){
+      return {
+        topbar: {},
+      }
+    },
+    created(){
+      var s = this.settings;
+      for(var k in s){
+        this[k] = s[k];
+      }
+    },
+    props: ['settings'],
     components: {
       Topbar
     }

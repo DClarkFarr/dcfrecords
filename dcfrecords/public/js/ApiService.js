@@ -69,6 +69,9 @@ var ApiService = {
 	checkUsernameAndEmail: function(first_name, last_name, email){
 		return this.post('user/username-email', {first_name: first_name, last_name: last_name, email: email});
 	},
+	resetPassword: function(username, email){
+		return this.post('user/reset-password', {username: username, email: email});
+	},
 	statusColor: function(status){
 		var color;
 		if(status == 'created'){

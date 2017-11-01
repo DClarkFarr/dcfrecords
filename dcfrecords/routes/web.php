@@ -32,6 +32,7 @@ Route::prefix('api')->namespace('Api')->group(function () {
 	Route::post('user/username', 'UserController@usernameAction');
 	Route::post('user/username-email', 'UserController@usernameEmailAction');
 	Route::post('user/username-available', 'UserController@usernameAvailableAction');
+	Route::post('user/reset-password', 'UserController@resetPasswordAction');
 });
 
 Route::get('/', function () {

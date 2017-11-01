@@ -1,5 +1,5 @@
 <template>
-	<main-view>
+	<main-view v-bind:settings="{topbar: {menu: false}}">
 		<div class="create-account">
 			<slidedown>
 				<div v-show="message.errors.length" class='alert alert-danger'>

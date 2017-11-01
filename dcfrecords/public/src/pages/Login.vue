@@ -1,5 +1,5 @@
 <template>
-	<main-view>
+	<main-view v-bind:settings="{topbar: {menu: false}}">
 		<div class="text-center">
 			<h3>DCF Records</h3>
 			<h1>Welcome</h1>

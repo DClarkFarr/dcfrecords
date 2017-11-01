@@ -136,4 +136,31 @@ class UserController extends Controller {
 		}
 		return ['status' => empty($errors) ? 'success' : 'failed', 'user' => $user_data, 'errors' => $errors];
 	}
+
+	public function resetPasswordAction(){
+		$email = \Request::input('email');
+		$username = \Request::input('username');
+
+		$error = "";
+		if(!$email || !User::isValidEmail($email)){
+			return ['status' => 'failed', 'message' => "Please use valid email"];
+		}
+
+		if(!$username || !User::isValidUsername($username)){
+			return ['status' => 'failed', 'message' => "Please use valid username"];
+		}
+
+		$user = User::where([
+			'email' => $email,
+			'username' => $username,
+		])->first();
+
+		if(empty($user)){
+			return ['status' => 'failed', 'message' => "Account/Email Combination not Found"];
+		}
+
+		$user->resetPassword();
+		
+		return ['status' => "success"];
+	}
 }

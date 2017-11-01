@@ -106,4 +106,19 @@ class User Extends Model {
 
 		return [true, $username];
 	}
+
+	public function resetPassword(){
+		$password = substr(md5( time() ), 10, 10);
+
+		$this->password = \Hash::make($password);
+		$this->save();
+
+		$user = $this;
+		$res = \Mail::send('emails.reset-password', ['user' => $user, 'password' => $password], function ($m) use ($user) {
+            $m->from('no-reply@dcfrecords.com', 'DCF Records');
+
+            $m->to($user->email, $user->first_name . ' ' . $user->last_name)->subject('Temporary Password');
+        });
+        return $res;
+	}
 }

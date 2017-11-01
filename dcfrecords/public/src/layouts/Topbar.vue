@@ -1,13 +1,14 @@
 <template>
 	<div class="topbar">
-    <div class='topbar-link'>
+    <div v-show="settings.home" class='topbar-link link-left'>
       <v-link href="/"><i class='fa fa-home'></i></v-link>
     </div>
 
-    <div class='topbar-title' v-if="title">{{title}}</div>
-    <div class='topbar-page' v-if="page">{{page}}</div>
+    <div class='topbar-title text-center' v-if="title">{{title}}</div>
 
-    
+    <div v-show="settings.menu" class="topbar-link link-right">
+      <a href="javascript:void(0)"><i class='fa fa-bars'></i></a>
+    </div>
   </div>
 </template>
 
@@ -17,12 +18,18 @@
   export default {
     data: function(){
       return {
-
+        settings: {
+          menu: true,
+          home: true,
+        },
       };
+    },
+    created(){
+      this.settings = $.extend(this.settings, this.topbar);
     },
     props: {
       title: {default: 'DCF Records'},
-      page: {default: ''}
+      topbar: {},
     },
     components: {
       VLink
@@ -40,6 +47,7 @@
     padding: 5px 15px;
     color: white;
     min-height: 30px;
+    position: relative;
   }
   .topbar a {
     color: white;
@@ -47,28 +55,35 @@
 
   .topbar-title {
     font-size: 18px;
+    margin: 0 50px;
   }
 
   .topbar-link {
-    float: right;
+    position: absolute;
+    top: 0;
+  }
+  .topbar-link.link-right {
+    right: 15px;
+  }
+  .topbar-link.link-left {
+    left: 15px;
   }
   .topbar-link a {
     font-size: 20px;
+      line-height: 1.7;
   }
-  .topbar-title {
-  display: inline-block;
-}
-.topbar-page {
-  display: inline-block;
-}
 
-.topbar-title + .topbar-page {
-  margin-left: 15px;
-}
+  .topbar-page {
+    display: inline-block;
+  }
 
-.topbar-title + .topbar-page:before {
-  content: "/";
-  margin-left: -10px;
-  margin-right: 10px;
-}
+  .topbar-title + .topbar-page {
+    margin-left: 15px;
+  }
+
+  .topbar-title + .topbar-page:before {
+    content: "/";
+    margin-left: -10px;
+    margin-right: 10px;
+  }
 </style>
