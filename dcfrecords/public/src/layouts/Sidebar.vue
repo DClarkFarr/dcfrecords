@@ -76,6 +76,9 @@ export default {
 	border-top: solid 3px #EDEEEF;
 	padding-top: 15px;
 }
+.sidebar-footer .btn-primary i.fa {
+	color: #387EF5;
+}
 .sidebar a {
 	color: #898A8B;
 	display: inline-block;
