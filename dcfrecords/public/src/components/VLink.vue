@@ -20,7 +20,7 @@
     },
     computed: {
       isActive () {
-        return this.href === this.$root.view.path
+        return this.href === this.$route.path
       }
     },
     methods: {

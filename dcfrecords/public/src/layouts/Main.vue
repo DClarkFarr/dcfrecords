@@ -6,12 +6,15 @@
     <div id="content">
       <slot></slot>
     </div>
+    <sidebar></sidebar>
     <slot name='footer'></slot>
   </div>
 </template>
 
 <script>
   import Topbar from './Topbar.vue';
+  import Sidebar from '../layouts/Sidebar.vue';
+
 
   export default {
     data(){
@@ -27,7 +30,8 @@
     },
     props: ['settings'],
     components: {
-      Topbar
+      Topbar,
+      Sidebar
     }
   }
 </script>

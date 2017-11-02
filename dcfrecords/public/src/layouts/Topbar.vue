@@ -7,7 +7,7 @@
     <div class='topbar-title text-center' v-if="title">{{title}}</div>
 
     <div v-show="settings.menu" class="topbar-link link-right">
-      <a href="javascript:void(0)"><i class='fa fa-bars'></i></a>
+      <a href="javascript:void(0)" v-on:click="showSidebar"><i class='fa fa-bars'></i></a>
     </div>
   </div>
 </template>
@@ -27,12 +27,17 @@
     created(){
       this.settings = $.extend(this.settings, this.topbar);
     },
+    methods: {
+      showSidebar(){
+        this.$root.$bus.$emit('sidebar.show');
+      },
+    },
     props: {
       title: {default: 'DCF Records'},
       topbar: {},
     },
     components: {
-      VLink
+      VLink,
     }
   }
 

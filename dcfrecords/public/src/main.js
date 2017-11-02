@@ -27,7 +27,7 @@ const app = new Vue({
   },
 
   created: function(){
-    this.$bus = new Vue();
+    this.$bus = new Vue({});
 
     Api.init(); 
     this.authenticateUser((data) => {

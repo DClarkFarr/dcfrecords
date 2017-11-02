@@ -307,6 +307,9 @@ var ApiService = {
         var expires = "expires="+ d.toUTCString();
         document.cookie = cname + "=" + cvalue + "; " + expires;
     },
+    deleteCookie: function(cname){
+    	this.setCookie(cname, undefined, -10);
+    }
 
 };
 window.Api = ApiService;
