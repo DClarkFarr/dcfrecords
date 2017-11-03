@@ -38,7 +38,7 @@
 		},
 		methods: {
 			getRecords(){
-				Api.getRecords({show: this.show}).then((data) => {	
+				Api.getRecords({show: this.show, owned: this.owned ? 1 : 0}).then((data) => {	
 					this.total = data.total;
 					this.offest = data.offset;
 					this.records = data.records;
@@ -50,8 +50,11 @@
 			show(val){
 				this.getRecords();
 			},
+			owned(){
+				this.getRecords();
+			},
 		},
-		props: ['show'],
+		props: ['show', 'owned'],
 		components: {
 			RecordListItem,
 		},

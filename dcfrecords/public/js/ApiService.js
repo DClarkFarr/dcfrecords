@@ -30,7 +30,7 @@ var ApiService = {
 		return this.post('record/save', {id_record: id_record, fields: fields});
 	},
 	post: function(url, post, callback){
-		return $.post(this.base + url, post, callback, 'json');
+		return $.post(this.base + url, $.extend({}, {user_guid: this.user_guid}, post), callback, 'json');
 	},
 
 	getContact: function(id_contact, id_record){

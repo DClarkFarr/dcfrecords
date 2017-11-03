@@ -46,6 +46,7 @@ class ContactsController extends Controller {
 		if(empty($contact)){
 			$contact = new Contact;
 			$contact->id_record = $id_record;
+			$contact->id_user = \Config::get('user.id_user');
 		}
 
 		$to_set = array_intersect_key($fields, array_flip($contact->fillable));

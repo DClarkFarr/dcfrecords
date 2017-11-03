@@ -8,6 +8,7 @@ class User Extends Model {
 
 	public $fillable = ['username', 'password', 'user_guid', 'first_name', 'last_name', 'email', 'permission', 'deleted', 'date_login'];
 
+	protected $hidden = ['id_user', 'password'];
 	//custom functions
 	public static function validateLogin($username, $password){
 		$errors = [];
@@ -120,5 +121,16 @@ class User Extends Model {
             $m->to($user->email, $user->first_name . ' ' . $user->last_name)->subject('Temporary Password');
         });
         return $res;
+	}
+
+	public static function authViaGuid(){
+		$user_guid = \Request::input('user_guid');
+		if(!$user_guid){
+			return false;
+		}
+
+		$user = self::where('user_guid', $user_guid)->where('deleted', 0)->first();
+
+		return !empty($user) ? $user : false;
 	}
 }

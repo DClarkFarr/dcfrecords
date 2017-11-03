@@ -157,10 +157,12 @@ li.status-danger p.text,
 	color: #EF483B;
 }
 
+.btn-default.btn-link,
 .btn-default.btn-link.active, 
 .btn-default.btn-link:active, 
 .open>.dropdown-toggle.btn-default.btn-link {
 	background: none;
+	color: #333;
 }
 
 .relative {

@@ -19,6 +19,7 @@
 			<p class='text-muted'>	
 				<span class='' v-if="createdAt">
 					<small>Created: 
+						<user-span v-bind:user="record.user"></user-span>
 						<time-span 
 							v-bind:date="record.updated_at"
 							v-bind:created="record.created_at"></time-span>
@@ -38,6 +39,7 @@
 <script>
 import VLink from '../../VLink.vue'
 import TimeSpan from '../../TimeSpan.vue'
+import UserSpan from '../../UserSpan.vue'
 
 export default {
 	props: ['record'],
@@ -82,6 +84,7 @@ export default {
 	components: {
 		VLink,
 		TimeSpan,
+		UserSpan,
 	}
 }
 </script>

@@ -13,18 +13,25 @@
 
 Route::prefix('api')->namespace('Api')->group(function () {
 	header('Access-Control-Allow-Origin: *');
-	Route::post('records', 'RecordsController@getRecordsAction');
-	Route::post('record', 'RecordsController@getRecordAction');
-	Route::post('record/save', 'RecordsController@saveRecordAction');
 
-	Route::post('contacts', 'ContactsController@getContactsAction');
-	Route::post('contact', 'ContactsController@getContactAction');
-	Route::post('contact/save', 'ContactsController@saveContactAction');
-	Route::post('contact/delete', 'ContactsController@deleteContactAction');
-	Route::post('contact/update-status', 'ContactsController@updateStatusAction');
+	Route::group([], function(){
+		\Config::set('user', \App\Models\User::authViaGuid());
 
-	Route::post('event/delete', 'EventsController@deleteEventAction');
+		if( empty(\Config::get('user.id_user')) ){
+			return ['status' => "failed", 'Message'];
+		}
+		Route::post('records', 'RecordsController@getRecordsAction');
+		Route::post('record', 'RecordsController@getRecordAction');
+		Route::post('record/save', 'RecordsController@saveRecordAction');
 
+		Route::post('contacts', 'ContactsController@getContactsAction');
+		Route::post('contact', 'ContactsController@getContactAction');
+		Route::post('contact/save', 'ContactsController@saveContactAction');
+		Route::post('contact/delete', 'ContactsController@deleteContactAction');
+		Route::post('contact/update-status', 'ContactsController@updateStatusAction');
+
+		Route::post('event/delete', 'EventsController@deleteEventAction');
+	});
 
 	Route::post('user/get', 'UserController@getUserAction');
 	Route::post('user/create', 'UserController@createUserAction');

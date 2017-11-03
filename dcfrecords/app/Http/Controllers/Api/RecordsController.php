@@ -14,6 +14,7 @@ class RecordsController extends Controller {
 		$limit = !empty($post->limit) ? $post->limit : 10;
 		$sort = !empty($post->sort) ? $post->sort : false;
 		$show = !empty($post->show) ? $post->show : 'active';
+		$owned = !empty($post->owned) ? true : false;
 
 		if($sort && $sort[0] != '-'){
 			$orderBy = 'ASC';
@@ -32,6 +33,10 @@ class RecordsController extends Controller {
 		}else{
 			$args[] = ['status', '=', 'complete'];
 		}
+		if($owned){
+			$args[] = ['id_user', '=', \Config::get('user.id_user')];
+		}
+
 		$tableset = Record::where($args)
 			->orderBy($order, $orderBy);
 
@@ -80,6 +85,7 @@ class RecordsController extends Controller {
 
 		if(empty($record)){
 			$record = new Record;
+			$record->id_user = \Config::get('user.id_user');
 		}
 
 		$to_set = array_intersect_key($fields, array_flip($record->fillable));
@@ -89,7 +95,7 @@ class RecordsController extends Controller {
 		}
 
 		$record->fill($to_set)->save();
-
-		return ['status' => 'success', 'record' => $record->buildRelations()];
+		$record->buildRelations();
+		return ['status' => 'success', 'record' => $record];
 	}
 }

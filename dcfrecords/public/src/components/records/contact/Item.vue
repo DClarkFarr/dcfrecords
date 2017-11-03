@@ -7,10 +7,15 @@
 				</div>
 			</div>
 			<div class="content-center pointer" v-on:click="open = !open">
-				<h4>{{contact.value}}</h4>
 				<p class='text-muted'>
 					<small>
 						{{contact.label}} 
+					</small>
+				</p>
+				<h4>{{contact.value}}</h4>
+				<p class='text-muted'>
+					<small>
+						<user-span v-bind:user="contact.user"></user-span>
 						<time-span 
 							v-bind:date="contact.updated_at"
 							v-bind:created="contact.created_at"
@@ -24,6 +29,7 @@
 				    <span class="caret"></span>
 				  </button>
 				  <ul class="dropdown-menu text-right">
+				  	<li class="dropdown-header">Update Status</li>
 				    <li
 				    	v-for="status in statuses" 
 				    	v-bind:class="{active: status.value == contact.status}">
@@ -34,6 +40,7 @@
 				    		</a>
 				    </li>
 				    <li role="separator" class="divider"></li>
+				    <li class="dropdown-header">Actions</li>
 				    <li><v-link v-bind:href="editUrl"><i class='fa fa-pencil'></i> Edit</v-link></li>
 				    <li><a v-on:click="deleteContact" href="javascript:void(0)"><i class='fa fa-times'></i> Delete</a></li>
 				  </ul>
@@ -69,6 +76,7 @@
 <script>
 import VLink from '../../VLink.vue'
 import TimeSpan from '../../TimeSpan.vue'
+import UserSpan from '../../UserSpan.vue'
 import Slidedown from "../../transitions/Slidedown.vue";
 
 export default {
@@ -123,6 +131,7 @@ export default {
 	components: {
 		VLink,
 		TimeSpan,
+		UserSpan,
 		Slidedown
 	},
 };

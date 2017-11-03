@@ -6,6 +6,10 @@
           <i class='fa fa-plus'></i>
         </v-link>
         <span class="pull-right">
+          <button v-show="owned" v-on:click="owned = false" class="btn btn-link btn-default">Filter: My Posts</button>
+          <button v-show="!owned" v-on:click="owned = true" class="btn btn-link btn-default">Filter: All Posts</button>
+        </span>
+        <span class="pull-right">
           <button v-show="show == 'completed'" v-on:click="toggleShow('active')" class="btn btn-link btn-success">Show: Competed</button>
           <button v-show="show == 'active'" v-on:click="toggleShow('completed')" class="btn btn-link btn-primary">Show: Active</button>
         </span>
@@ -13,7 +17,7 @@
       </div>
       <br>
       
-      <record-list v-bind:show="show"></record-list>
+      <record-list v-bind:show="show" v-bind:owned="owned"></record-list>
 
   	</div>
   	
@@ -29,6 +33,7 @@
     data: function(){
       return {
         show: 'active',
+        owned: false,
       }
     },
     methods: {

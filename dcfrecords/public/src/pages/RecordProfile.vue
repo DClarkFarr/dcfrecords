@@ -13,6 +13,7 @@
 	 				<h4 class='inline relative'><span>{{record.name}}</span> <v-link class='btn btn-link edit-link' v-bind:href="'/record/edit/' + record.id_record"><i class='fa fa-pencil'></i></v-link></h4>
 	 			</div>
 	 			<p class='text-muted'><small>Lead: {{record.lead}}</small></p>
+	 			<p><user-span v-bind:user='record.user'></user-span></p>
 	 		</div>
 	 	</div>
 	 	<div class='profile-tabs' style="margin-top: 25px;">
@@ -94,6 +95,7 @@
 import MainLayout from '../layouts/Main.vue'
 import VLink from '../components/VLink.vue'
 import TimeSpan from '../components/TimeSpan.vue'
+import UserSpan from '../components/UserSpan.vue'
 import RecordContactItem from '../components/records/contact/Item.vue'
 
 export default {
@@ -102,6 +104,7 @@ export default {
     		record: {
     			status: 'created',
     			contacts: [],
+    			user: {},
     		},
     		message: {},
     	};
@@ -168,6 +171,7 @@ export default {
 		VLink,
 		RecordContactItem,
 		TimeSpan,
+		UserSpan
 	},
 }
 </script>
