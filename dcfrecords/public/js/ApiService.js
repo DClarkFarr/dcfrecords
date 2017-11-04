@@ -72,6 +72,9 @@ var ApiService = {
 	resetPassword: function(username, email){
 		return this.post('user/reset-password', {username: username, email: email});
 	},
+	userSave: function(fields){
+		return this.post('user/save', {fields: fields});
+	},
 	statusColor: function(status){
 		var color;
 		if(status == 'created'){

@@ -4,7 +4,18 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller, App\Models\User;
 
 class UserController extends Controller {
+	public function saveUserAction(){
+		$post = \Request::all();
+		$fields = $post['fields'];
 
+		$user = \Config::get('user');
+
+		$to_set = array_intersect_key($fields, array_flip($user->fillable));
+
+		$user->fill($to_set)->save();
+
+		return ['status' => 'success', 'user' => $user];
+	}
 	public function userLoginAction(){
 		$username = \Request::input('username');
 		$password = \Request::input('password');
@@ -160,7 +171,7 @@ class UserController extends Controller {
 		}
 
 		$user->resetPassword();
-		
+
 		return ['status' => "success"];
 	}
 }

@@ -35,6 +35,7 @@ Route::prefix('api')->namespace('Api')->group(function () {
 
 	Route::post('user/get', 'UserController@getUserAction');
 	Route::post('user/create', 'UserController@createUserAction');
+	Route::post('user/save', 'UserController@saveUserAction');
 	Route::post('user/login', 'UserController@userLoginAction');
 	Route::post('user/username', 'UserController@usernameAction');
 	Route::post('user/username-email', 'UserController@usernameEmailAction');

@@ -5,8 +5,8 @@
 				<div v-on:click="hideSidebar" class="sidebar-slide-bg"></div>
 				<div class='sidebar-slide-content'>
 					<div class="sidebar-header">
-						<div class='username'>Daniel (Daniel Farr)</div>
-						<div class='email'>email@email.com</div>
+						<div class='username'>{{user.username}} ({{user.first_name}} {{user.last_name}})</div>
+						<div class='email'>{{user.email}}</div>
 					</div>
 					<div class="sidebar-content">
 						<ul class="list-unstyled">
@@ -26,6 +26,7 @@
 <script>
 import SidebarSlide from '../components/transitions/SidebarSlide.vue'
 import VLink from '../components/VLink.vue'
+import UserMixin from '../mixins/User.vue'
 
 export default {
 	data(){
@@ -40,7 +41,10 @@ export default {
 		this.$root.$bus.$on('sidebar.hide', () => {
 			this.sidebarOpen = false;
 		});
+
+		this.onUserUpdate();
 	},
+	mixins: [UserMixin],
 	methods: {
 		logout(){
 			Api.deleteCookie('user_guid');

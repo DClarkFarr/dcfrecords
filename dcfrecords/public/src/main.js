@@ -16,7 +16,7 @@ router.beforeEach((to, from, next) => {
   next()
 })
 
-
+import UserMixin from './mixins/User.vue'
 
 const app = new Vue({
   el: '#app',
@@ -25,30 +25,32 @@ const app = new Vue({
     user: false,
     view: false,
   },
-
+  mixins: [UserMixin],
   created: function(){
     this.$bus = new Vue({});
 
     Api.init(); 
+
+    this.onUserUpdate();
+
     this.authenticateUser((data) => {
       if(this.$route.name === null || (this.$route.path !== undefined && this.$route.path.indexOf('/login') > -1) ){
         this.redirect('/');
       }
     });
+
   },
   template: '<div id="#app"><router-view class="view"></router-view></div>',
   methods: {
     authenticateUser(callback){
       if(Api.user_guid){
-        Api.getUser().then((data) => {
-          if(data.status == 'success'){
-            this.user = data.user;
-            if($.isFunction(callback)){
-              callback(data);
-            }
-          }else{
-            this.redirect('/login');
+        this.getUser( (data) => {
+          this.setUser(data.user);
+          if($.isFunction(callback)){
+            callback(data);
           }
+        }, (data) => {
+          this.redirect('/login');
         });
       }else{
         this.redirect('/login');

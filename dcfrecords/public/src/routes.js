@@ -6,6 +6,7 @@ import Login from './pages/Login.vue';
 import LoginCreate from './pages/LoginCreate.vue';
 import LoginForgot from './pages/LoginForgot.vue';
 import NotFound from './pages/NotFound.vue';
+import MyAccount from './pages/MyAccount.vue';
 
 export default [
     { path: '/', name: 'Home', component: Home, meta: {title: 'Home'} },
@@ -15,5 +16,6 @@ export default [
     { path: '/login', name: 'Login', component: Login, meta: {title: "Login to DCF Records"}},
     { path: '/login/forgot', name: 'LoginForgot', component: LoginForgot, meta: {title: "Forgot Password"}},
     { path: '/login/create', name: 'LoginCreate', component: LoginCreate, meta: {title: "Create Account"}},
-    { path: '/page-not-found', name: 'not-found', component: NotFound },
+    { path: '/my-account', name: 'MyAccount', component: MyAccount, meta: {title: 'My Account'}},
+    { path: '/page-not-found', name: 'not-found', component: NotFound, meta: {title: "Page Not Found"} },
 ];
