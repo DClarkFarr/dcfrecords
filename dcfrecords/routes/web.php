@@ -43,6 +43,9 @@ Route::prefix('api')->namespace('Api')->group(function () {
 	Route::post('user/reset-password', 'UserController@resetPasswordAction');
 });
 
-Route::get('/', function () {
-    return view('layout');
+Route::get('/', function(){
+	return view('layout');
 });
+Route::get('/{any}', function () {
+  return view('layout');
+})->where('any', '.*');
