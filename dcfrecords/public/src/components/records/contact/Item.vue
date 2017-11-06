@@ -63,7 +63,7 @@
 										v-bind:mode="'datetime'"
 										v-bind:date="event.updated_at"
 										v-bind:heading='false'></time-span>
-									<user-span v-bind:user="event.user"></user-span>
+									<user-span v-if="event.user" v-bind:user="event.user"></user-span>
 								</small>
 							</p>
 							<p class='text'>{{ statusText(event.value) }}</p>

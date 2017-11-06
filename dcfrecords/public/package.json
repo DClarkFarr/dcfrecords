@@ -5,12 +5,12 @@
   "author": "Daniel C Farr <danielcfarr@gmail.com>",
   "private": true,
   "scripts": {
-    "dev": "node build/dev-server.js",
+    "dev": "webpack-dev-server --inline --hot",
     "start": "npm run dev",
     "build": "node build/build.js"
   },
   "dependencies": {
-    "vue": "^2.5.2",
+    "vue": "^2.5.3",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {

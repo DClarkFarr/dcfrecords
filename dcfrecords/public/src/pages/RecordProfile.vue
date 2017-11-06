@@ -56,7 +56,7 @@
 		    			<div class="card-border-right"></div>
 		    			<div class="card-content">
 		    				<button
-		    					v-if="global().canEdit('admin', event.user.id_user)"
+		    					v-if="global().canEdit('admin', buildEvent(event).user.id_user)"
 		    					v-on:click="deleteEvent(event)" 
 		    					class='pull-right btn btn-link btn-danger'>
 		    					<i class="fa fa-times"></i>
@@ -71,7 +71,7 @@
 		    							v-bind:heading="false"
 		    							v-bind:mode="'datetime'"
 		    							></time-span>
-		    						<user-span v-bind:user="event.user"></user-span>
+		    							<user-span v-if="event.user && event.user.id_user" v-bind:user="event.user"></user-span>
 		    					</small>
 		    				</p>
 		    				<h4>
@@ -132,6 +132,10 @@ export default {
 		},
 	},
 	methods: {
+		buildEvent(event){
+			event.user = event.user || {};
+			return event;
+		},
 		deleteEvent(event){
 			Api.deleteEvent(event.id_record, event.id_event).then((data) => {
 				if(data.status == 'success'){
