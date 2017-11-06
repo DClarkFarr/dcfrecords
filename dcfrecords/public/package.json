@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "webpack-dev-server --inline --hot",
     "start": "npm run dev",
-    "build": "node build/build.js"
+    "build": "NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
     "vue": "^2.5.3",
