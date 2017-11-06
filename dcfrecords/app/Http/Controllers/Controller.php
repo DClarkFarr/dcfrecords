@@ -9,4 +9,8 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs;
+
+    public function userNotAuthenticatedAction(){
+    	return ['status' => 'false', 'message' => 'User Not Authenticated'];
+    }
 }

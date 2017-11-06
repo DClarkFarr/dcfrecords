@@ -39,10 +39,12 @@
 				    			<i class="fa fa-arrow-right"></i> {{status.name}}
 				    		</a>
 				    </li>
-				    <li role="separator" class="divider"></li>
-				    <li class="dropdown-header">Actions</li>
-				    <li><v-link v-bind:href="editUrl"><i class='fa fa-pencil'></i> Edit</v-link></li>
-				    <li><a v-on:click="deleteContact" href="javascript:void(0)"><i class='fa fa-times'></i> Delete</a></li>
+				    
+					<li v-if="global().canEdit('admin', contact.user.id_user)" role="separator" class="divider"></li>
+				    <li v-if="global().canEdit('admin', contact.user.id_user)" class="dropdown-header">Actions</li>
+				    <li v-if="global().canEdit('admin', contact.user.id_user)"><v-link v-bind:href="editUrl"><i class='fa fa-pencil'></i> Edit</v-link></li>
+				    <li v-if="global().canEdit('admin', contact.user.id_user)"><a v-on:click="deleteContact" href="javascript:void(0)"><i class='fa fa-times'></i> Delete</a></li>
+				    
 				  </ul>
 				</div>
 			</div>
@@ -61,6 +63,7 @@
 										v-bind:mode="'datetime'"
 										v-bind:date="event.updated_at"
 										v-bind:heading='false'></time-span>
+									<user-span v-bind:user="event.user"></user-span>
 								</small>
 							</p>
 							<p class='text'>{{ statusText(event.value) }}</p>

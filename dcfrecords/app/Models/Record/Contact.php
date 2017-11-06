@@ -21,6 +21,12 @@ class Contact extends Model {
 			->orderBy('updated_at', 'desc')
 			->orderBy('id_event', 'desc')
 			->get();
+
+		if(!$this->events->isEmpty()){
+			foreach($this->events as $event){
+				$event->buildRelations();
+			}
+		}
 		$event = $this->events->first();
 		$this->last_event = !empty($event) ? $event->value : "";
 		$this->last_event_date = !empty($event) ? $event->updated_at : '';

@@ -9,7 +9,8 @@
 			<p class='text-muted'>
 				<span v-html="statusText"></span> 
 				<span class='' v-if="lastUpdated">
-					<small> - Updated: 
+					<small>
+						<user-span v-bind:user="lastEvent.user"></user-span>
 						<time-span 
 							v-bind:date="lastUpdated"
 							v-bind:created="lastCreated"></time-span>
@@ -18,7 +19,7 @@
 			</p>
 			<p class='text-muted'>	
 				<span class='' v-if="createdAt">
-					<small>Created: 
+					<small><span style="display: inline-block; padding-left: 18px;">Created</span>
 						<user-span v-bind:user="record.user"></user-span>
 						<time-span 
 							v-bind:date="record.updated_at"
@@ -28,7 +29,7 @@
 			</p>
 		</div>
 		<div class='buttons'>
-			<v-link v-bind:href="editLink" class="btn btn-link btn-default">
+			<v-link v-if="global().canEdit('admin', record.user.id_user)" v-bind:href="editLink" class="btn btn-link btn-default">
 				<i class='fa fa-pencil'></i>
 			</v-link>
 		</div>
@@ -59,6 +60,11 @@ export default {
 		profileLink(){
 			return '/record/' + this.record.id_record;
 		},
+		lastEvent(){
+			var obj = this.record.events[0];
+			obj.user = $.extend({}, obj.user);
+			return obj;
+		},
 		lastUpdated(){
 			var event = this.record.events[0];
 			if(event !== undefined){
@@ -75,8 +81,7 @@ export default {
 			return Api.timeElapsed(this.record.created_at);
 		}
 	},
-	methods: {
-		
+	methods: {	
 		go(){
 			this.$root.redirect(this.profileLink);
 		},

@@ -10,7 +10,8 @@
 	 				<div class="icon"></div>
 	 			</div>
 	 			<div>
-	 				<h4 class='inline relative'><span>{{record.name}}</span> <v-link class='btn btn-link edit-link' v-bind:href="'/record/edit/' + record.id_record"><i class='fa fa-pencil'></i></v-link></h4>
+	 				<h4 class='inline relative'><span>{{record.name}}</span> 
+	 				<v-link v-if="global().canEdit('admin', record.user.id_user)" class='btn btn-link edit-link' v-bind:href="'/record/edit/' + record.id_record"><i class='fa fa-pencil'></i></v-link></h4>
 	 			</div>
 	 			<p class='text-muted'><small>Lead: {{record.lead}}</small></p>
 	 			<p><user-span v-bind:user='record.user'></user-span></p>
@@ -55,6 +56,7 @@
 		    			<div class="card-border-right"></div>
 		    			<div class="card-content">
 		    				<button
+		    					v-if="global().canEdit('admin', event.user.id_user)"
 		    					v-on:click="deleteEvent(event)" 
 		    					class='pull-right btn btn-link btn-danger'>
 		    					<i class="fa fa-times"></i>
@@ -69,6 +71,7 @@
 		    							v-bind:heading="false"
 		    							v-bind:mode="'datetime'"
 		    							></time-span>
+		    						<user-span v-bind:user="event.user"></user-span>
 		    					</small>
 		    				</p>
 		    				<h4>

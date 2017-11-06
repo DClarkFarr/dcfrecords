@@ -26,7 +26,7 @@ class UserController extends Controller {
 		if($status){
 			$user->last_login = date('Y-m-d H:i:s');
 			$user->save();
-			$results['user'] = array_intersect_key($user->toArray(), array_flip(['first_name', 'last_name', 'email', 'user_guid', 'username', 'permission', 'last_login']));
+			$results['user'] = $user;
 		}else{
 			$results['errors'] = $user;
 		}
@@ -39,7 +39,7 @@ class UserController extends Controller {
 
 		$results = ['status' => !empty($user) ? 'success': 'failed'];
 		if(!empty($user)){
-			$results['user'] = array_intersect_key($user->toArray(), array_flip(['first_name', 'last_name', 'email', 'user_guid', 'username', 'permission', 'last_login']));
+			$results['user'] = $user;
 		}else{
 			$results['message'] = 'User Not Found';
 		}
@@ -143,9 +143,8 @@ class UserController extends Controller {
 				'user_guid' => $user_guid,
 			]);
 			$user->save();
-			$user_data = array_intersect_key($user->toArray(), array_flip(['first_name', 'last_name', 'email', 'user_guid', 'username', 'permission', 'last_login']));
 		}
-		return ['status' => empty($errors) ? 'success' : 'failed', 'user' => $user_data, 'errors' => $errors];
+		return ['status' => empty($errors) ? 'success' : 'failed', 'user' => $user, 'errors' => $errors];
 	}
 
 	public function resetPasswordAction(){

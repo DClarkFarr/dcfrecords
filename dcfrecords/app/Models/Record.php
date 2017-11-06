@@ -33,9 +33,10 @@ class Record extends Model {
 			->orderBy('updated_at', 'desc')
 			->orderBy('id_event', 'desc')
 			->get();
+
 		if(!$this->events->isEmpty()){
 			foreach($this->events as $event){
-				$event->contact = $event->contact;
+				$event->buildRelations();
 			}
 		}
 

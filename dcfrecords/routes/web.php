@@ -18,7 +18,7 @@ Route::prefix('api')->namespace('Api')->group(function () {
 		\Config::set('user', \App\Models\User::authViaGuid());
 
 		if( empty(\Config::get('user.id_user')) ){
-			return ['status' => "failed", 'Message'];
+			Route::post('records', '\App\Http\Controllers\Controller@userNotAuthenticatedAction');
 		}
 		Route::post('records', 'RecordsController@getRecordsAction');
 		Route::post('record', 'RecordsController@getRecordAction');

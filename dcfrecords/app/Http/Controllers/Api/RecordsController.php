@@ -71,7 +71,7 @@ class RecordsController extends Controller {
 		}
 
 		$record->buildRelations();
-
+		
 		return ['status' => 'success', 'record' => $record];
 	}
 

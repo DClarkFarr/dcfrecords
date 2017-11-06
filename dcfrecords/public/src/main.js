@@ -18,6 +18,52 @@ router.beforeEach((to, from, next) => {
 
 import UserMixin from './mixins/User.vue'
 
+Vue.mixin({
+  methods: {
+    global(){
+      return {
+        scope: this,
+        getUser: function(){
+          return this.scope.$root.user || {};
+        },
+        getPermissions: function(){
+          return ['pending', 'user', 'admin'];  //0, 1, 2
+        },
+        canEdit(levels, id_user){
+          return this.hasPermission(levels) || this.isOwner( id_user );
+        },
+        hasPermission: function(levels){
+          var user = this.getUser(), permissions = this.getPermissions();
+          if(typeof levels == 'string'){
+            levels = [levels];
+          }
+          if(user !== undefined && user.permission !== undefined){
+            var approved = false, userIndex = permissions.indexOf(user.permission), adminIndex = permissions.indexOf('admin');
+
+            for(var l = 0; l < levels.length; l++){
+              var levelIndex = permissions.indexOf(levels[l]);
+              if( userIndex === levelIndex || userIndex === adminIndex){
+                approved = true;
+              }
+            }
+
+            return approved;
+          }
+
+          return false;
+        },
+        isOwner: function(id_user){
+          var user = this.getUser();
+          if(user && user.id_user !== undefined){
+            return parseInt(user.id_user) === parseInt(id_user);
+          }
+          return false;
+        },
+      };
+    },
+  },
+});
+
 const app = new Vue({
   el: '#app',
   router: router,

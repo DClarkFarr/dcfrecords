@@ -8,7 +8,7 @@ class User Extends Model {
 
 	public $fillable = ['username', 'password', 'user_guid', 'first_name', 'last_name', 'email', 'permission', 'deleted', 'date_login'];
 
-	protected $hidden = ['id_user', 'password'];
+	protected $hidden = ['password'];
 	//custom functions
 	public static function validateLogin($username, $password){
 		$errors = [];
