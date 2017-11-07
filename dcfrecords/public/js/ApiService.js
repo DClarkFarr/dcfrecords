@@ -6,7 +6,7 @@ $.ajaxSetup({
 });
 
 var ApiService = {
-	base: 'http://localhost:8888/api/',
+	base: window.baseUrl + '/api/',
 	init: function(){
 		this.user_guid = this.getCookie('user_guid');
 	},
