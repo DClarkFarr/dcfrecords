@@ -63,4 +63,17 @@ export default {
 		color: #333;
 	}
 
+	@media(max-width: 767px){
+		.userspan {
+			font-size: 13px;
+		}
+		.userspan:not(.has-mode){
+			margin: 0;
+		}
+
+		.userspan:not(.has-mode) + .userspan:not(.has-mode){
+			margin-left: 5px;
+		}
+	}
+
 </style>

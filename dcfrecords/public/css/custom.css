@@ -107,32 +107,38 @@ small {
 
 .status-success .icon,
 li.status-success p.text,
-.text-wrap.status-success i {
+.text-wrap.status-success i,
+.status-success > .fa {
 	color: #34CD5F;
 }
 .status-info .icon,
 li.status-info p.text,
-.text-wrap.status-info i {
+.text-wrap.status-info i,
+.status-info > .fa {
 	color: #11C1F3;
 }
 .status-primary .icon,
 li.status-primary p.text,
-.text-wrap.status-primary i {
+.text-wrap.status-primary i,
+.status-primary > .fa {
 	color: #387EF5;
 }
 .status-default .icon,
 li.status-default p.text,
-.text-wrap.status-default i {
+.text-wrap.status-default i,
+.status-default > .fa {
 	color: #C3C3C3;
 }
 .status-warning .icon,
 li.status-warning p.text,
-.text-wrap.status-warning i {
+.text-wrap.status-warning i,
+.status-warning > .fa {
 	color: #FFC900;
 }
 .status-danger .icon,
 li.status-danger p.text,
-.text-wrap.status-danger i {
+.text-wrap.status-danger i,
+.status-danger > .fa {
 	color: #EF483B;
 }
 

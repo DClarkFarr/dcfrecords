@@ -96,4 +96,23 @@ export default {
 		background: #efefef;
 		color: #333;
 	}
+
+	@media(max-width: 767px){
+		.timespan {
+			font-size: 13px;
+		}
+		.timespan:not(.has-mode){
+			margin: 0;
+		}
+
+		.timespan:not(.has-mode) + .timespan:not(.has-mode){
+			margin-left: 5px;
+		}
+		.content-left .icon-wrapper {
+			padding-right: 8px;
+		}
+		.list-item .content-left {
+			margin-right: 8px;
+		}
+	}
 </style>

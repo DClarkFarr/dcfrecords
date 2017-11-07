@@ -2,7 +2,7 @@
 	<div class='record-list-item' v-bind:class="status">
 		
 		<div class='icon'>
-			<div class='circle'></div>
+			<span v-html="statusIcon"></span>
 		</div>
 		<div class='content' v-on:click="go">
 			<h4>{{record.name}}</h4>
@@ -45,10 +45,16 @@ import UserSpan from '../../UserSpan.vue'
 export default {
 	props: ['record'],
 	computed: {
+		statusIcon(){
+			var event = this.record.events[0];
+			if(event !== undefined){
+				return "<span class='"+ Api.statusColor(event.value) +"'><i class='"+ Api.contactIcon(event.contact.type) +"'></i></span>";
+			}
+		},
 		statusText(){
 			var event = this.record.events[0];
 			if(event !== undefined){
-				return "<span class='text-wrap "+ Api.statusColor(event.value) +"'><i class='"+ Api.contactIcon(event.contact.type) +"'></i> " + Api.contactStatusText(event.value) + "</span>";
+				return "<span class='text-wrap "+ Api.statusColor(event.value) +"'> " + Api.contactStatusText(event.value) + "</span>";
 			}
 		},
 		status() {

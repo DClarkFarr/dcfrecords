@@ -91,5 +91,28 @@
 		cursor: pointer;
 	}
 	
+	.record-list-item .icon {
+	    font-size: 30px;
+	    text-align: center;
+	}
+	@media (max-width: 767px) {
+		.record-list-item .buttons {
+		    position: absolute;
+		    width: unset;
+		    margin: 0;
+		    right: 0;
+		}
+		.record-list-item .icon {
+		    margin-right: 10px;
+		    width: 30px;
+		}
+		.circle {
+		    height: 40px;
+		    width: 40px;
+		}
+		.record-list-item .content small > span:first-child {
+			padding-left: 0 !important;
+		}
+	}
 
 </style>

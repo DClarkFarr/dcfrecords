@@ -14,7 +14,7 @@
 Route::prefix('api')->namespace('Api')->group(function () {
 	
 	if( \Config::get('app.env') == 'local' ){
-		//header('Access-Control-Allow-Origin: *');
+		header('Access-Control-Allow-Origin: *');
 	}	
 	
 
